@@ -12,6 +12,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @CommandAlias("offlinetp")
+@CommandPermission("offlinetp.admin")
 public class TeleportCommands extends BaseCommand {
 
     private final OfflineTeleporter plugin;
@@ -21,6 +22,7 @@ public class TeleportCommands extends BaseCommand {
     }
 
     @Subcommand("player")
+    @CommandPermission("offlinetp.admin.tp.player")
     @CommandCompletion("@offlineplayers")
     public void teleport(@Flags("self") Player player, String name) {
 
@@ -40,6 +42,7 @@ public class TeleportCommands extends BaseCommand {
     }
 
     @Subcommand("all")
+    @CommandPermission("offlinetp.admin.tp.all")
     @CommandCompletion("@worlds")
     public void teleportAll(@Flags("self") Player player, @Optional String world) {
 
