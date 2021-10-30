@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Silthus/purpur-offline-teleport/compare/v1.0.1...v1.0.2) (2021-10-30)
+
+
+### Bug Fixes
+
+* **cmd:** filtered player count for specific world not correct ([df71d7c](https://github.com/Silthus/purpur-offline-teleport/commit/df71d7c33ecc5e21dc76e7fe613ac090e311a7d8))
+
 ## [1.0.1](https://github.com/Silthus/purpur-offline-teleport/compare/v1.0.0...v1.0.1) (2021-10-30)
 
 
