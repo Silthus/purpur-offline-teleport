@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Silthus/purpur-offline-teleport/compare/v1.0.2...v1.0.3) (2021-10-30)
+
+
+### Bug Fixes
+
+* do not wait for teleport ([d4a3162](https://github.com/Silthus/purpur-offline-teleport/commit/d4a3162c9e3d49c1ad3d65641a0dde6810e21eaf))
+
 ## [1.0.2](https://github.com/Silthus/purpur-offline-teleport/compare/v1.0.1...v1.0.2) (2021-10-30)
 
 
