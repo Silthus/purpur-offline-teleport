@@ -51,12 +51,15 @@ repositories {
     mavenCentral()
     spigot()
     maven { url = 'https://jitpack.io' }
+    maven { url = 'https://repo.aikar.co/content/groups/aikar/' }
+    maven { url = "https://repo.pl3x.net/" }
 }
 
 dependencies {
-    implementation spigot(mcVersion)
+    implementation "net.pl3x.purpur:purpur-api:1.17.1-R0.1-SNAPSHOT"
 
     //Add dependencies here
+    implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
 
     //Test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
@@ -67,11 +70,11 @@ dependencies {
 
 shadowJar {
     classifier = ''
-//    dependencies {
-//        include(dependency('co.aikar:acf-paper:0.5.0-SNAPSHOT'))
-//    }
-//    relocate 'co.aikar.commands', "${packageName}.acf"
-//    relocate 'co.aikar.locales', "${packageName}.locales"
+    dependencies {
+        include(dependency('co.aikar::'))
+    }
+    relocate 'co.aikar.commands', "${packageName}.acf"
+    relocate 'co.aikar.locales', "${packageName}.locales"
 }
 
 tasks.build.dependsOn(shadowJar)
