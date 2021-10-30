@@ -17,5 +17,8 @@ A simple and quick plugin to teleport offline players to your current location.
   ***Permission**: `offlinetp.admin.tp.player`*
 - `/offlinetp all`: *Teleports all offline (and online) players to your current location.*  
   ***Permission**: `offlinetp.admin.tp.all`*
+
+## Upcoming Features
+
 - `/offlinetp all <world>`: *Teleports all offline (and online) players that were last seen in the given world to your current location. The world must exist and still be loaded!*  
   ***Permission**: `offlinetp.admin.tp.all`*
