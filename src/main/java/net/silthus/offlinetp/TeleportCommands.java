@@ -59,15 +59,17 @@ public class TeleportCommands extends BaseCommand {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             OfflinePlayer[] offlinePlayers = Bukkit.getServer().getOfflinePlayers();
             if (worldId != null) {
-                Arrays.stream(offlinePlayers)
+                long playerCount = Arrays.stream(offlinePlayers)
                         .filter(offlinePlayer -> offlinePlayer.getLocation() != null)
                         .filter(offlinePlayer -> offlinePlayer.getLocation().getWorld().getUID().equals(worldId))
-                        .forEach(offlinePlayer -> teleportOfflinePlayer(offlinePlayer, location));
+                        .map(offlinePlayer -> teleportOfflinePlayer(offlinePlayer, location))
+                        .count();
+                player.sendMessage(ChatColor.GREEN + "Teleporting " + playerCount + " players to " + player.getLocation() + ". This may take some time...");
             } else {
                 Arrays.stream(offlinePlayers)
                         .forEach(offlinePlayer -> teleportOfflinePlayer(offlinePlayer, location));
+                player.sendMessage(ChatColor.GREEN + "Teleporting " + offlinePlayers.length + " players to " + player.getLocation() + ". This may take some time...");
             }
-            player.sendMessage(ChatColor.GREEN + "Teleporting " + offlinePlayers.length + " players to " + player.getLocation() + ". This may take some time...");
         });
     }
 
