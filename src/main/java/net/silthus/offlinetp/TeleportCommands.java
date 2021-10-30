@@ -8,8 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.Arrays;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @CommandAlias("offlinetp")
 @CommandPermission("offlinetp.admin")
@@ -31,14 +33,8 @@ public class TeleportCommands extends BaseCommand {
             throw new InvalidCommandArgument("Unable to find a cached offline player for the name: " + name);
         }
 
-        teleportOfflinePlayer(offlinePlayer, player.getLocation())
-                .thenAccept(teleported -> {
-                    if (teleported) {
-                        player.sendMessage(ChatColor.GREEN + "Teleported " + offlinePlayer.getName() + " to " + player.getLocation() + ".");
-                    } else {
-                        player.sendMessage(ChatColor.RED + "Failed to teleport " + offlinePlayer.getName());
-                    }
-                });
+        teleportOfflinePlayer(offlinePlayer, player.getLocation());
+        player.sendMessage(ChatColor.GREEN + "Teleported " + offlinePlayer.getName() + " to " + player.getLocation() + ".");
     }
 
     @Subcommand("all")
@@ -59,12 +55,12 @@ public class TeleportCommands extends BaseCommand {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             OfflinePlayer[] offlinePlayers = Bukkit.getServer().getOfflinePlayers();
             if (worldId != null) {
-                long playerCount = Arrays.stream(offlinePlayers)
+                Set<OfflinePlayer> players = Arrays.stream(offlinePlayers)
                         .filter(offlinePlayer -> offlinePlayer.getLocation() != null)
                         .filter(offlinePlayer -> offlinePlayer.getLocation().getWorld().getUID().equals(worldId))
-                        .map(offlinePlayer -> teleportOfflinePlayer(offlinePlayer, location))
-                        .count();
-                player.sendMessage(ChatColor.GREEN + "Teleporting " + playerCount + " players to " + player.getLocation() + ". This may take some time...");
+                        .collect(Collectors.toSet());
+                players.forEach(offlinePlayer -> teleportOfflinePlayer(offlinePlayer, location));
+                player.sendMessage(ChatColor.GREEN + "Teleporting " + players.size() + " players to " + player.getLocation() + ". This may take some time...");
             } else {
                 Arrays.stream(offlinePlayers)
                         .forEach(offlinePlayer -> teleportOfflinePlayer(offlinePlayer, location));
@@ -73,7 +69,7 @@ public class TeleportCommands extends BaseCommand {
         });
     }
 
-    private CompletableFuture<Boolean> teleportOfflinePlayer(OfflinePlayer offlinePlayer, Location location) {
-        return offlinePlayer.teleportOfflineAsync(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
+    private void teleportOfflinePlayer(OfflinePlayer offlinePlayer, Location location) {
+        offlinePlayer.teleportOfflineAsync(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
     }
 }
