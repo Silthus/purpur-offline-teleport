@@ -59,7 +59,7 @@ dependencies {
     implementation "net.pl3x.purpur:purpur-api:1.17.1-R0.1-SNAPSHOT"
 
     //Add dependencies here
-    implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+    implementation "co.aikar:acf-paper:0.5.1-SNAPSHOT"
 
     //Test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
